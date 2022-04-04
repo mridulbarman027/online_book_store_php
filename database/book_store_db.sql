@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 04, 2022 at 03:40 PM
+-- Generation Time: Apr 04, 2022 at 08:14 PM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `book_store_db`
 --
+CREATE DATABASE IF NOT EXISTS `book_store_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `book_store_db`;
 
 -- --------------------------------------------------------
 
@@ -46,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `books` (
 --
 
 INSERT INTO `books` (`id`, `category_ids`, `title`, `author`, `description`, `qty`, `price`, `image_path`, `date_created`) VALUES
-(1, '4,1', 'Sample Book', 'Sample Author', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt dolor in odio aliquet placerat. Mauris vestibulum lacinia justo, at sollicitudin nisi pretium in. Vivamus et ex at purus placerat laoreet faucibus vitae enim. Sed nibh ex, varius congue augue vitae, ullamcorper porta lorem. Praesent ex nunc, faucibus id eros nec, dapibus tempor justo. Ut turpis urna, euismod ac tincidunt vitae, interdum vel purus. Etiam pellentesque leo eget commodo dignissim. Proin ac lorem id lorem euismod posuere eget eget ipsum.', 0, 2500, '1604631420_books-1419613.jpg', '2020-11-06 10:57:51'),
+(1, '1,4', 'Software Engineering', '', 'Software Engineering Book', 0, 2500, '1604631420_books-1419613.jpg', '2020-11-06 10:57:51'),
 (2, '1,2', 'Python Programming', 'Anthony Brun', 'A Step by Step Guide from Beginner to  Expert', 0, 1800, '1604631960_python_book.jpg', '2020-11-06 11:06:58');
 
 -- --------------------------------------------------------
@@ -63,14 +65,16 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `price` float NOT NULL,
   `customer_id` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`id`, `book_id`, `qty`, `price`, `customer_id`) VALUES
-(4, 1, 1, 2500, 2);
+(4, 1, 1, 2500, 2),
+(5, 1, 2, 2500, 1),
+(7, 2, 1, 1800, 1);
 
 -- --------------------------------------------------------
 
@@ -91,10 +95,9 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `description`) VALUES
-(1, 'Educational', 'Educational'),
-(2, 'Programming', 'Programming'),
-(3, 'Fantasy', 'Fantasy'),
-(4, 'Business', 'Business');
+(1, 'Educational', 'Educational Courses'),
+(2, 'Programming', 'Programming Courses'),
+(4, 'MCA', 'MCA Courses');
 
 -- --------------------------------------------------------
 
@@ -191,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `system_settings` (
 --
 
 INSERT INTO `system_settings` (`id`, `name`, `email`, `contact`, `cover_img`, `about_content`) VALUES
-(1, 'Online Book Store System', 'info@sample.com', '+18456-5455-55', '', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt dolor in odio aliquet placerat. Mauris vestibulum lacinia justo, at sollicitudin nisi pretium in. Vivamus et ex at purus placerat laoreet faucibus vitae enim. Sed nibh ex, varius congue augue vitae, ullamcorper porta lorem. Praesent ex nunc, faucibus id eros nec, dapibus tempor justo. Ut turpis urna, euismod ac tincidunt vitae, interdum vel purus. Etiam pellentesque leo eget commodo dignissim. Proin ac lorem id lorem euismod posuere eget eget ipsum.&lt;/p&gt;&lt;p&gt;Nunc tincidunt augue eu ipsum aliquam venenatis. Vestibulum metus nunc, porta quis commodo id, consectetur id ipsum. Phasellus luctus tortor vitae nisl consectetur molestie. Sed varius ornare leo, sit amet faucibus turpis placerat non. Nam ipsum quam, dapibus vitae consequat vitae, molestie nec lacus. Praesent gravida lacus sed pellentesque posuere. Donec tincidunt urna nec magna pulvinar, et viverra leo dictum. Cras aliquet odio ac dapibus porttitor.&lt;/p&gt;&lt;p&gt;Suspendisse sed auctor enim, eu laoreet purus. Fusce aliquam nisl odio, condimentum commodo risus bibendum eu. Proin vitae felis sollicitudin, porta leo sit amet, pretium lorem. Proin facilisis egestas lacus, eu mollis felis egestas eget. Phasellus efficitur accumsan dolor, ut pharetra tortor posuere nec. Phasellus rutrum lacus in purus facilisis tempus. Donec a sapien a dolor varius rutrum in vel velit. Proin mattis porttitor commodo. Nam vitae porta diam, auctor lacinia nibh. Sed sodales commodo suscipit. Suspendisse eu lectus ac ligula fringilla auctor. Donec rutrum, lectus in cursus hendrerit, leo massa dignissim dui, eu tempus lacus est laoreet enim. Nunc lobortis condimentum vulputate.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://localhost/book_store/admin/assets/uploads/1604629260_books-1419613.jpg&quot; style=&quot;width: 465px;&quot; class=&quot;fr-fic fr-dib&quot;&gt;&lt;/p&gt;&lt;p&gt;Curabitur bibendum sem non sagittis sagittis. Fusce ac orci tincidunt, viverra enim id, posuere felis. Cras sed urna elit. Curabitur facilisis odio porta eros facilisis varius. Sed vulputate dolor ac venenatis porta. Suspendisse sit amet odio mollis, porta erat ut, venenatis velit. Nunc sollicitudin lorem vitae purus sodales malesuada. Maecenas pellentesque, nisl sed hendrerit venenatis, tortor augue commodo felis, non cursus risus massa pulvinar sapien. Aliquam vitae nisi et magna condimentum faucibus nec sit amet est. Etiam vulputate iaculis sodales. Fusce ut turpis ut ante laoreet interdum sed ac velit. Suspendisse lacinia felis erat, in lacinia risus volutpat id. Praesent egestas odio diam, ut congue quam sollicitudin laoreet. Aenean elit eros, dapibus id purus blandit, imperdiet vehicula augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam maximus elementum nulla nec consequat.&lt;/p&gt;&lt;p&gt;In aliquam tellus turpis. Etiam pretium ex cursus viverra interdum. Quisque maximus tortor lacus, nec ullamcorper risus bibendum nec. Mauris at ante dui. Vivamus eget suscipit ex. Nullam a purus tincidunt, molestie purus et, placerat enim. Mauris luctus erat sit amet suscipit luctus. Mauris lorem sapien, maximus sit amet varius nec, scelerisque sit amet felis. Phasellus et consequat metus. Sed suscipit aliquet ullamcorper. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer nec pharetra nunc, a pretium libero. Etiam rhoncus ante nibh, a venenatis felis ullamcorper sit amet.&lt;/p&gt;');
+(1, 'Online Book Store System', 'mridulbarman027@gmail.com', '+91 9864072585', '', '&lt;p&gt;This is &lt;strong&gt;Online Store for Selling Books&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://localhost/book_store/admin/assets/uploads/1604629260_books-1419613.jpg&quot; style=&quot;width: 465px;&quot; class=&quot;fr-fic fr-dib&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;');
 
 -- --------------------------------------------------------
 
